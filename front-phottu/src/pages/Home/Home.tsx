@@ -10,29 +10,22 @@ interface MediaItem {
     type: 'image' | 'video';
 }
 
-const Home: React.FC = () => {
-    const itemsAppend: MediaItem[] = Array.from({ length: 20 }, (_, i) => ({
-        id: i,
-        url: `https://picsum.photos/300/200?random=${i}`,
-        type: 'image'
-    }));
-    const [items, setItems] = useState<MediaItem[]>([]);
+interface HomeProps {
+    items: MediaItem[];
+    setItems: React.Dispatch<React.SetStateAction<MediaItem[]>>;
+    deletedItems: MediaItem[];
+    setDeletedItems: React.Dispatch<React.SetStateAction<MediaItem[]>>;
+  }
+
+const Home: React.FC<HomeProps> = ({ items, setItems, deletedItems, setDeletedItems }) => {
     const [selectedItems, setSelectedItems] = useState<number[]>([]);
     const [isSelectionMode, setIsSelectionMode] = useState(false);
     const [selectAllTrigger, setSelectAllTrigger] = useState(false);
     const [clearSelectionTrigger, setClearSelectionTrigger] = useState(false);
-    const [deletedItems, setDeletedItems] = useState<MediaItem[]>([]);
-
-    useEffect(() => {
-        setItems(itemsAppend);
-    }, []);
 
     useEffect(() => {
         console.log(selectedItems)
     }, [selectedItems]);
-
-
-
 
     const handleFilesSelected = (files: FileList) => {
         const newItems: MediaItem[] = Array.from(files).map((file, index) => ({

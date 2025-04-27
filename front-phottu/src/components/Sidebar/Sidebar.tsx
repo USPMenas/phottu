@@ -1,4 +1,6 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { SidebarContainer, ToggleButton, MenuItem, SubMenuItem, HiddenFileInput } from './Sidebar.ts';
 
 interface SidebarProps {
@@ -6,6 +8,8 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onFilesSelected }) => {
+  const navigate = useNavigate();
+
   const [collapsed, setCollapsed] = React.useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -27,15 +31,14 @@ const Sidebar: React.FC<SidebarProps> = ({ onFilesSelected }) => {
 
       {!collapsed && (
         <div>
-          <MenuItem>📷 Fotos</MenuItem>
+          <MenuItem onClick={() => navigate('/')}>📷 Fotos</MenuItem>
           <MenuItem>
             📁 Pastas
             <SubMenuItem>• Pasta 1</SubMenuItem>
             <SubMenuItem>• Pasta 2</SubMenuItem>
           </MenuItem>
-          <MenuItem>🗑️ Lixeira</MenuItem>
+          <MenuItem onClick={() => navigate('/trash')}>🗑️ Lixeira</MenuItem>           
           <MenuItem onClick={handleNewPhotosClick}>➕ Novas Fotos</MenuItem>
-
           <HiddenFileInput
             type="file"
             ref={fileInputRef}

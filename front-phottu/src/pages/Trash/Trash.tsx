@@ -42,7 +42,9 @@ const Trash: React.FC<TrashProps> = ({ deletedItems, setDeletedItems }) => {
         // deletar
     };
 
-
+    const handleFilesSelected = () => {
+        // ver o que fazer
+    }
 
     return (
         <div>
